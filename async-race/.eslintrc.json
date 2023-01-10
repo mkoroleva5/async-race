@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-base",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "root": true,
+  "rules": {
+    "import/prefer-default-export": "off",
+    "import/no-default-export": "error",
+    "arrow-body-style": "off",
+    "@typescript-eslint/no-non-null-assertion": "off"
+  },
+  "ignorePatterns": ["vite.config.ts"]
+}
