@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 export const setLS = (key: string, value: unknown) => {
   localStorage.setItem(key, JSON.stringify(value));
 };

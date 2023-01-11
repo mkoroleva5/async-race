@@ -1,7 +1,6 @@
 import { getLS, setLS } from '../../utils/localStorageHelpers';
 import './view.css';
 
-/* global document */
 export const createViewOptions = () => {
   const view = document.createElement('div');
   view.className = 'view-wrapper';
