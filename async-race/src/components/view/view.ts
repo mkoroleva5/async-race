@@ -1,18 +1,15 @@
+import { createElement } from '../../utils/createElementHelper';
 import { getLS, setLS } from '../../utils/localStorageHelpers';
 import './view.css';
 
 export const createViewOptions = () => {
-  const view = document.createElement('div');
-  view.className = 'view-wrapper';
+  const view = createElement('div', 'view-wrapper');
   const options = ['Garage', 'Winners'];
 
   options.map((el) => {
-    const viewOption = document.createElement('div');
-    const viewInput = document.createElement('input');
-    const viewLabel = document.createElement('label');
-    viewOption.className = 'view-option';
-    viewInput.className = 'view-input';
-    viewLabel.className = 'view-label';
+    const viewOption = createElement('div', 'view-option');
+    const viewInput = createElement('input', 'view-input') as HTMLInputElement;
+    const viewLabel = createElement('label', 'view-label');
 
     viewInput.setAttribute('type', 'radio');
     viewInput.setAttribute('name', 'view');
