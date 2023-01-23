@@ -16,7 +16,7 @@ interface CreateCarsProps {
 export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
   const cars = createElement('div', 'cars-wrapper');
 
-  carsArray.map(async (el) => {
+  const generateCar = (el: Car) => {
     const car = createElement('div', 'car-wrapper');
 
     const carInfo = createElement('div', 'car-info');
@@ -95,28 +95,32 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
       startButton.style.backgroundColor = 'var(--bg-color)';
     });
 
-    state.subscribe(() => {
-      if (state.animation === true) {
-        startButton.disabled = true;
-        startButton.classList.add('disabled-car-button');
-        stopButton.disabled = true;
-        stopButton.classList.add('disabled-car-button');
-        selectButton.disabled = true;
-        selectButton.classList.add('disabled');
-        removeButton.disabled = true;
-        removeButton.classList.add('disabled');
-      }
-      if (state.animation === false) {
-        startButton.disabled = false;
-        startButton.classList.remove('disabled-car-button');
-        stopButton.disabled = false;
-        stopButton.classList.remove('disabled-car-button');
-        selectButton.disabled = false;
-        selectButton.classList.remove('disabled');
-        removeButton.disabled = false;
-        removeButton.classList.remove('disabled');
-      }
-    });
+    const updateButtonsView = () => {
+      state.subscribe(() => {
+        if (state.animation === true) {
+          startButton.disabled = true;
+          startButton.classList.add('disabled-car-button');
+          stopButton.disabled = true;
+          stopButton.classList.add('disabled-car-button');
+          selectButton.disabled = true;
+          selectButton.classList.add('disabled');
+          removeButton.disabled = true;
+          removeButton.classList.add('disabled');
+        }
+        if (state.animation === false) {
+          startButton.disabled = false;
+          startButton.classList.remove('disabled-car-button');
+          stopButton.disabled = false;
+          stopButton.classList.remove('disabled-car-button');
+          selectButton.disabled = false;
+          selectButton.classList.remove('disabled');
+          removeButton.disabled = false;
+          removeButton.classList.remove('disabled');
+        }
+      });
+    };
+
+    updateButtonsView();
 
     car.appendChild(raceField);
     raceField.appendChild(startButton);
@@ -133,7 +137,12 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
     car.appendChild(raceLine);
 
     cars.appendChild(car);
-    return car;
+    return { element: cars, updateButtonsView };
+  };
+
+  carsArray.map(async (el) => {
+    generateCar(el);
   });
+
   return cars;
 };

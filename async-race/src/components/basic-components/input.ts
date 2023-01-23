@@ -77,6 +77,7 @@ export const createInput = (
       }
       textInput.value = '';
       state.cars = carsArray;
+      state.selectedCar = null;
       callback();
     }
   });

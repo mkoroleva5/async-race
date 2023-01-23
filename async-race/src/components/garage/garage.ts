@@ -144,7 +144,9 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
         resetButton.disabled = false;
         resetButton.classList.remove('disabled');
       })
-      .catch(() => {}); // Already handled
+      .catch((err) => {
+        console.error(err);
+      });
   });
 
   resetButton.addEventListener('click', () => {
@@ -158,9 +160,10 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
       await stopRace(el.id); // -------------- не работает
       await stopRaceAnimation(el.id);
       resetRaceAnimation(el.id);
+      raceButton.disabled = false;
       raceButton.classList.remove('disabled');
     });
-    updateCars(state.cars); // -------------- обновлять драйв
+    updateCars(state.cars);
   });
 
   generateButton.addEventListener('click', async () => {
