@@ -35,7 +35,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: inherit;
+  font-family: monospace;
 }
 
 html {
@@ -49,8 +49,9 @@ body {
   font-family: 'Nunito Sans', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: var(--text-color);
   background: no-repeat url('./assets/images/background.png');
   background-size: cover;
+  overflow-x: hidden;
 }
