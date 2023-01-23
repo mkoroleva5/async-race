@@ -1,5 +1,6 @@
 import { createElement } from '../../utils/createElementHelper';
 import { getLS, setLS } from '../../utils/localStorageHelpers';
+import { state } from '../store';
 import './view.css';
 
 export const createViewOptions = () => {
@@ -25,6 +26,19 @@ export const createViewOptions = () => {
     if (getLS('view') === el) {
       viewInput.checked = true;
     }
+
+    state.subscribe(() => {
+      if (state.animation === true) {
+        viewInput.disabled = true;
+        viewOption.classList.add('disabled-view');
+        viewLabel.classList.add('disabled-view');
+      }
+      if (state.animation === false) {
+        viewInput.disabled = false;
+        viewOption.classList.remove('disabled-view');
+        viewLabel.classList.remove('disabled-view');
+      }
+    });
 
     viewOption.appendChild(viewInput);
     viewOption.appendChild(viewLabel);

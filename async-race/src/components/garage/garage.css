@@ -29,6 +29,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   background-color: white;
   border-radius: 1.6rem;
   font-size: 2.4rem;
@@ -105,16 +106,6 @@
 
 .remove-button {
   margin-right: 1rem;
-}
-
-.disabled {
-  border: 3px solid #c9c9c9;
-  color: #c9c9c9;
-  cursor: default;
-}
-
-.disabled:active {
-  transform: scale(1);
 }
 
 .car-title {
@@ -202,6 +193,22 @@
   animation-duration: 0s;
   animation-fill-mode: forwards;
   animation-timing-function: linear;
+}
+
+.disabled {
+  border: 3px solid #c9c9c9;
+  color: #c9c9c9;
+  cursor: not-allowed;
+}
+
+.disabled:active,
+.disabled-car-button:active {
+  transform: scale(1);
+}
+
+.disabled-car-button {
+  background-color: #c9c9c9;
+  cursor: not-allowed;
 }
 
 @keyframes race {

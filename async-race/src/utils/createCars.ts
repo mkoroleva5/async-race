@@ -20,8 +20,8 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
     const car = createElement('div', 'car-wrapper');
 
     const carInfo = createElement('div', 'car-info');
-    const selectButton = createElement('button', 'button select-button');
-    const removeButton = createElement('button', 'button remove-button');
+    const selectButton = createElement('button', 'button select-button') as HTMLButtonElement;
+    const removeButton = createElement('button', 'button remove-button') as HTMLButtonElement;
     selectButton.innerHTML = 'select';
     removeButton.innerHTML = 'remove';
     const carTitle = createElement('p', 'car-title');
@@ -93,6 +93,29 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
 
       startButton.disabled = false;
       startButton.style.backgroundColor = 'var(--bg-color)';
+    });
+
+    state.subscribe(() => {
+      if (state.animation === true) {
+        startButton.disabled = true;
+        startButton.classList.add('disabled-car-button');
+        stopButton.disabled = true;
+        stopButton.classList.add('disabled-car-button');
+        selectButton.disabled = true;
+        selectButton.classList.add('disabled');
+        removeButton.disabled = true;
+        removeButton.classList.add('disabled');
+      }
+      if (state.animation === false) {
+        startButton.disabled = false;
+        startButton.classList.remove('disabled-car-button');
+        stopButton.disabled = false;
+        stopButton.classList.remove('disabled-car-button');
+        selectButton.disabled = false;
+        selectButton.classList.remove('disabled');
+        removeButton.disabled = false;
+        removeButton.classList.remove('disabled');
+      }
     });
 
     car.appendChild(raceField);

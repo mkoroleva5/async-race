@@ -42,3 +42,13 @@
 .submit-button:active {
   transform: scale(0.96);
 }
+
+.disabled {
+  border: 3px solid #c9c9c9;
+  color: #c9c9c9;
+  cursor: not-allowed;
+}
+
+.disabled:active {
+  transform: scale(1);
+}

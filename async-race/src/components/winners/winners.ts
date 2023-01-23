@@ -16,32 +16,27 @@ export const createWinnersContainer = () => {
 
   winners.appendChild(sortOption);
   winners.appendChild(orderOption);
-
   const winnersWrapper = createElement('div', 'winners-wrapper');
-  winners.append(winnersWrapper);
 
-  const createWinners = async () => {
-    const sortValue = sortOption.value;
-    const orderValue = orderOption.value;
+  const createWinners = () => {
+    winnersWrapper.replaceChildren();
 
-    state.subscribe(async () => {
-      state.winners = await getWinners({ page: 1, sort: sortValue, order: orderValue });
-      setLS('state', state);
-    });
-
-    console.log(state.winners);
-
-    state.winners.items.map((el) => {
-      // ------------------------------------------------------------ почему не видит?
+    state.winners.items.forEach((el) => {
       const carImage = createElement('div', 'winner-image');
       carImage.innerHTML = createCarSvg(el.car.color);
       const winner = createWinnerElement(el.car.name, el.wins, +(el.time / 1000).toFixed(2));
       winner.prepend(carImage);
+
       winnersWrapper.appendChild(winner);
-      return winnersWrapper;
     });
   };
 
+  state.subscribe(() => {
+    createWinners();
+  });
+
   createWinners();
+  winners.append(winnersWrapper);
+
   return winners;
 };

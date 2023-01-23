@@ -156,7 +156,7 @@ export const getWinnerStatus = async (id: number) => {
 export const saveWinner = async ({ id, time }: SaveWinnerProps) => {
   const winnerStatus = await getWinnerStatus(id);
 
-  if (winnerStatus === 400) {
+  if (winnerStatus === 404) {
     await createWinner({
       id,
       wins: 1,

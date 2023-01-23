@@ -44,3 +44,8 @@
 .view-input:checked ~ .view-label {
   background-color: var(--line-color);
 }
+
+.disabled-view {
+  background-color: #c9c9c9;
+  cursor: not-allowed;
+}

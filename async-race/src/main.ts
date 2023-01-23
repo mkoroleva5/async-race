@@ -11,8 +11,11 @@ const carsApi = await getCars(state.page);
 state.cars = carsApi.items;
 state.count = carsApi.count;
 state.totalPages = Math.ceil(state.count / 7);
-const winnersApi = await getWinners(1, state.sortBy, state.sortOrder);
-state.winners = winnersApi;
+state.winners = await getWinners({
+  page: state.winnersPage,
+  sort: getLS('sort') || state.sortBy,
+  order: getLS('order') || state.sortOrder,
+});
 getLS('state') ? (state.page = getLS('state').page) : setLS('state', state);
 
 state.subscribe((updatedState) => {

@@ -1,6 +1,10 @@
 import { EventObserver } from '../utils/observer';
 import { Car, Winner } from './api';
 
+interface Winners {
+  items: { car: void; id: number; name: string; color: string }[];
+  count: number;
+}
 export class State extends EventObserver<State> {
   cars: Car[] = [];
 
@@ -19,10 +23,16 @@ export class State extends EventObserver<State> {
     this.broadcast(this);
   }
 
-  winners: {
-    items: { car: void; id: number; name: string; color: string }[];
-    count: number;
-  } = { items: [], count: 0 };
+  _winners: Winners = { items: [], count: 0 };
+
+  get winners(): Winners {
+    return this._winners;
+  }
+
+  set winners(value: Winners) {
+    this._winners = value;
+    this.broadcast(this);
+  }
 
   winnersPage = 1;
 
@@ -41,9 +51,9 @@ export class State extends EventObserver<State> {
     this.broadcast(this);
   }
 
-  sortBy = 'id';
+  sortBy: 'id' | 'wins' | 'time' = 'id';
 
-  sortOrder = 'ASC';
+  sortOrder: 'ASC' | 'DESC' = 'ASC';
 
   private _count = 0;
 
@@ -53,6 +63,17 @@ export class State extends EventObserver<State> {
 
   set count(value) {
     this._count = value;
+    this.broadcast(this);
+  }
+
+  private _animation = false;
+
+  get animation() {
+    return this._animation;
+  }
+
+  set animation(value) {
+    this._animation = value;
     this.broadcast(this);
   }
 }

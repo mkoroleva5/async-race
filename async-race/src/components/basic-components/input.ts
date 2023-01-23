@@ -25,7 +25,10 @@ export const createInput = (
   colorInput.type = 'color';
   colorInput.value = color;
 
-  const submitButton = createElement('button', `submit-button ${buttonName}-button`);
+  const submitButton = createElement(
+    'button',
+    `submit-button ${buttonName}-button`,
+  ) as HTMLButtonElement;
   submitButton.textContent = buttonName;
 
   inputWrapper.appendChild(textInput);
@@ -40,6 +43,17 @@ export const createInput = (
       }
     });
   }
+
+  state.subscribe(() => {
+    if (state.animation === true) {
+      submitButton.disabled = true;
+      submitButton.classList.add('disabled');
+    }
+    if (state.animation === false) {
+      submitButton.disabled = false;
+      submitButton.classList.remove('disabled');
+    }
+  });
 
   submitButton.addEventListener('click', async (e) => {
     e.preventDefault();

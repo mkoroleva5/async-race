@@ -1,4 +1,11 @@
-import { createWinner, getWinner, getWinners, setDrive, stopRace } from '../components/api';
+import {
+  createWinner,
+  getWinner,
+  getWinners,
+  saveWinner,
+  setDrive,
+  stopRace,
+} from '../components/api';
 import { state } from '../components/store';
 
 export const startRaceAnimation = async (id: number, time: number) => {
@@ -12,17 +19,15 @@ export const startRaceAnimation = async (id: number, time: number) => {
 
   const car = document.querySelector(`.car-${id}`) as HTMLElement;
 
-  car.addEventListener('animationend', async () => {
-    try {
-      await createWinner({ id: state.currentWinner.winner?.id, wins: 1, time: time }); // ---------- только 1-го
-    } catch (err) {
-      console.log(err);
-    }
-
+  car.addEventListener('animationend', () => {
     if (!state.currentWinner) {
       state.currentWinner = { winner: state.cars.find((el) => el.id === id), time };
-      const winnerPopup = document.querySelector('.winner-popup-wrapper');
-      winnerPopup.style.display = 'flex';
+      const winnerPopup = document.querySelector<HTMLDivElement>('.winner-popup-wrapper');
+      winnerPopup!.style.display = 'flex';
+
+      saveWinner({ id: state.currentWinner.winner!.id, time }).catch((err) => {
+        console.error(err);
+      }); // ---------- только 1-го
     }
   });
 

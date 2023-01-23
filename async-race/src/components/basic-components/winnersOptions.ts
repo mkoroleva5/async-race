@@ -1,5 +1,6 @@
 import { createElement } from '../../utils/createElementHelper';
 import { getLS, setLS } from '../../utils/localStorageHelpers';
+import { getWinners } from '../api';
 import { state } from '../store';
 
 export const createWinnersOptions = () => {
@@ -44,16 +45,20 @@ export const createWinnersOptions = () => {
     state.sortOrder = orderInputWrapper.value;
   }
 
-  sortInputWrapper.addEventListener('change', () => {
+  sortInputWrapper.addEventListener('change', async () => {
     setLS('sort', sortInputWrapper.value);
     state.sortBy = sortInputWrapper.value;
+    state.winners = await getWinners({ page: 1, sort: state.sortBy, order: state.sortOrder });
     state.broadcast(state);
+    console.log(state.winners);
   });
 
-  orderInputWrapper.addEventListener('change', () => {
+  orderInputWrapper.addEventListener('change', async () => {
     setLS('order', orderInputWrapper.value);
     state.sortOrder = orderInputWrapper.value;
+    state.winners = await getWinners({ page: 1, sort: state.sortBy, order: state.sortOrder });
     state.broadcast(state);
+    console.log(state.winners);
   });
 
   return { sort: sortInputWrapper, order: orderInputWrapper };

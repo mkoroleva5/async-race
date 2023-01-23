@@ -84,7 +84,7 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
   const raceButtons = createElement('div', 'race-buttons');
   const raceButton = createElement('button', 'button race-button') as HTMLButtonElement;
   const resetButton = createElement('button', 'button reset-button') as HTMLButtonElement; // -------- сделать createElement дженериком
-  const generateButton = createElement('button', 'button generate-button');
+  const generateButton = createElement('button', 'button generate-button') as HTMLButtonElement;
   raceButton.innerHTML = 'race';
   resetButton.innerHTML = 'reset';
   generateButton.innerHTML = 'generate cars';
@@ -124,10 +124,14 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
   garage.appendChild(cars);
 
   raceButton.addEventListener('click', () => {
+    state.animation = true;
+    state.broadcast(state);
+
     raceButton.disabled = true;
     raceButton.classList.add('disabled');
-    resetButton.disabled = true;
-    resetButton.classList.add('disabled');
+    generateButton.disabled = true;
+    generateButton.classList.add('disabled');
+
     const promises = state.cars.map(async (el) => {
       try {
         const { velocity, distance } = await startRace(el.id);
@@ -139,17 +143,26 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     });
     Promise.all(promises)
       .then(async () => {
+        state.winners = await getWinners({
+          page: state.winnersPage,
+          sort: state.sortBy,
+          order: state.sortOrder,
+        });
+        state.broadcast(state);
+
         resetButton.disabled = false;
         resetButton.classList.remove('disabled');
-        if (state.currentWinner) state.winners.push(state.currentWinner); // ---------------- не пушит и не сохраняет
-        await saveWinner(state.currentWinner?.winner?.id, state.currentWinner?.time);
-        state.winners = await getWinners({ page: 1, sort: state.sortBy, order: state.sortOrder });
-        setLS('state', state);
       })
       .catch(() => {}); // Already handled
   });
 
   resetButton.addEventListener('click', () => {
+    state.animation = false;
+    state.broadcast(state);
+
+    generateButton.disabled = false;
+    generateButton.classList.remove('disabled');
+
     state.cars.map(async (el) => {
       await stopRace(el.id); // -------------- не работает
       await stopRaceAnimation(el.id);

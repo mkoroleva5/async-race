@@ -10,8 +10,8 @@ export const createPagination = (callback: (page: number) => void) => {
   const page = createElement('p', 'page');
   page.textContent = `${currentPage}`;
 
-  const prevPageButton = createElement('button', 'switch-button');
-  const nextPageButton = createElement('button', 'switch-button');
+  const prevPageButton = createElement('button', 'switch-button') as HTMLButtonElement;
+  const nextPageButton = createElement('button', 'switch-button') as HTMLButtonElement;
 
   const prevPageImg = createElement('img', 'prev-arrow-img');
   prevPageImg.setAttribute('src', arrowIcon);
@@ -27,6 +27,20 @@ export const createPagination = (callback: (page: number) => void) => {
   pageWrapper.appendChild(page);
   pageWrapper.appendChild(nextPageButton);
 
+  state.subscribe(() => {
+    if (state.animation === true) {
+      prevPageButton.disabled = true;
+      prevPageButton.classList.add('disabled-page-button');
+      nextPageButton.disabled = true;
+      nextPageButton.classList.add('disabled-page-button');
+    }
+    if (state.animation === false) {
+      prevPageButton.disabled = false;
+      prevPageButton.classList.remove('disabled-page-button');
+      nextPageButton.disabled = false;
+      nextPageButton.classList.remove('disabled-page-button');
+    }
+  });
   prevPageButton.addEventListener('click', () => {
     if (currentPage > 1) currentPage -= 1;
     page.textContent = `${currentPage}`;
