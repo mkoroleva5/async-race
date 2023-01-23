@@ -115,6 +115,7 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
   garage.appendChild(cars);
 
   raceButton.addEventListener('click', () => {
+    state.currentWinner = undefined;
     state.animation = true;
     state.broadcast(state);
 
@@ -158,14 +159,21 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     generateButton.disabled = false;
     generateButton.classList.remove('disabled');
 
-    state.cars.map(async (el) => {
-      await stopRace(el.id); // -------------- не работает
+    const promises = state.cars.map(async (el) => {
+      await stopRace(el.id);
       await stopRaceAnimation(el.id);
       resetRaceAnimation(el.id);
-      raceButton.disabled = false;
-      raceButton.classList.remove('disabled');
     });
-    updateCars(state.cars);
+
+    Promise.all(promises)
+      .then(async () => {
+        updateCars(state.cars);
+        raceButton.disabled = false;
+        raceButton.classList.remove('disabled');
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   });
 
   generateButton.addEventListener('click', async () => {
