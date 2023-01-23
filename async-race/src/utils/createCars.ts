@@ -1,4 +1,4 @@
-import { Car, deleteCar, startRace } from '../components/api';
+import { Car, deleteCar, startRace, stopRace } from '../components/api';
 import { createCarSvg } from './createCarSvg';
 import { createElement } from './createElementHelper';
 import playIcon from '../assets/icons/play.svg';
@@ -6,7 +6,7 @@ import stopIcon from '../assets/icons/stop.svg';
 import finishIcon from '../assets/icons/flag.svg';
 import flameIcon from '../assets/icons/flame-icon.svg';
 import { state } from '../components/store';
-import { startRaceAnimation, stopRaceAnimation } from './raceAnimations';
+import { startRaceAnimation } from './raceAnimations';
 
 interface CreateCarsProps {
   carsArray: Car[];
@@ -78,21 +78,24 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
     carImage.appendChild(flame);
 
     startButton.addEventListener('click', async () => {
+      state.singleAnimations = { ...state.singleAnimations, [el.id]: true };
       const { velocity, distance } = await startRace(el.id);
       const time = Math.round(distance / velocity);
-      startRaceAnimation(el.id, time);
+      await startRaceAnimation(el.id, time);
     });
 
     stopButton.addEventListener('click', async () => {
-      await stopRaceAnimation(el.id);
-    });
+      delete state.singleAnimations[el.id];
+      await stopRace(el.id);
 
-    carImage.addEventListener('transitionend', () => {
       stopButton.disabled = true;
       stopButton.style.backgroundColor = '#c9c9c9';
-
       startButton.disabled = false;
       startButton.style.backgroundColor = 'var(--bg-color)';
+
+      carImage.style.animationPlayState = 'paused';
+      carImage.classList.remove('race');
+      carImage.classList.remove('rotate');
     });
 
     const updateButtonsView = () => {

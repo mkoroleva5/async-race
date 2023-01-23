@@ -22,6 +22,7 @@ export const startRaceAnimation = async (id: number, time: number) => {
         console.error(err);
       });
     }
+    delete state.singleAnimations[id];
   });
 
   car.style.animationDuration = `${time}ms`;
@@ -30,16 +31,17 @@ export const startRaceAnimation = async (id: number, time: number) => {
 
   try {
     await setDrive(id);
+    stopButton.disabled = true;
+    stopButton.style.backgroundColor = '#c9c9c9';
+    startButton.disabled = false;
+    startButton.style.backgroundColor = 'var(--bg-color)';
   } catch (err) {
     console.log(err);
-    car.style.animationPlayState = 'paused';
-    car.classList.add('rotate');
+    if (state.singleAnimations[id]) {
+      car.style.animationPlayState = 'paused';
+      car.classList.add('rotate');
+    }
   }
-
-  stopButton.disabled = true;
-  stopButton.style.backgroundColor = '#c9c9c9';
-  startButton.disabled = false;
-  startButton.style.backgroundColor = 'var(--bg-color)';
 };
 
 export const stopRaceAnimation = async (id: number) => {

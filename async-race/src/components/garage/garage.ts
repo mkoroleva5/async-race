@@ -153,9 +153,6 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
   });
 
   resetButton.addEventListener('click', () => {
-    state.animation = false;
-    state.broadcast(state);
-
     generateButton.disabled = false;
     generateButton.classList.remove('disabled');
 
@@ -170,6 +167,7 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
         updateCars(state.cars);
         raceButton.disabled = false;
         raceButton.classList.remove('disabled');
+        state.animation = false;
       })
       .catch((err) => {
         console.error(err);

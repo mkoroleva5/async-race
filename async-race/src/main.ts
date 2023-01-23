@@ -43,7 +43,6 @@ const createBody = async () => {
   }
 
   state.subscribe((updatedState) => {
-    console.log(updatedState);
     setLS('state', updatedState);
   });
 

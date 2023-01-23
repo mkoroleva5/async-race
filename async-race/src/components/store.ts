@@ -88,6 +88,17 @@ export class State extends EventObserver<State> {
     this._animation = value;
     this.broadcast(this);
   }
+
+  private _singleAnimations: Record<number, boolean> = {};
+
+  get singleAnimations() {
+    return this._singleAnimations;
+  }
+
+  set singleAnimations(value) {
+    this._singleAnimations = value;
+    this.broadcast(this);
+  }
 }
 
 export const state = new State();
