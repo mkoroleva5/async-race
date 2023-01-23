@@ -22,7 +22,9 @@ export const createViewOptions = () => {
     });
 
     if (!getLS('view')) setLS('view', 'Garage');
-    if (getLS('view') === el) viewInput.checked = true;
+    if (getLS('view') === el) {
+      viewInput.checked = true;
+    }
 
     viewOption.appendChild(viewInput);
     viewOption.appendChild(viewLabel);
