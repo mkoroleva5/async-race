@@ -4,17 +4,25 @@
 }
 
 .sort-wrapper {
-  margin: 3rem;
+  margin: 0rem 3rem;
+}
+
+.sort-wrapper,
+.order-wrapper {
+  height: 3rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+  outline: none;
+  background-color: rgb(255, 255, 255, 0.5);
 }
 
 .winner {
   display: grid;
   grid-template-rows: 1;
-  grid-template-columns: 0.5fr 1fr 0.5fr 1fr;
+  grid-template-columns: 0.3fr 0.5fr 2fr 0.5fr 1fr;
   align-items: center;
   gap: 2rem;
-}
-
-.winner-text {
   font-weight: 700;
 }

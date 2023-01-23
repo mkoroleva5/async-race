@@ -120,6 +120,8 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
 
     raceButton.disabled = true;
     raceButton.classList.add('disabled');
+    resetButton.disabled = true;
+    resetButton.classList.add('disabled');
     generateButton.disabled = true;
     generateButton.classList.add('disabled');
 

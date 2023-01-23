@@ -37,7 +37,16 @@ export class State extends EventObserver<State> {
     this.broadcast(this);
   }
 
-  winnersPage = 1;
+  _winnersPage = 1;
+
+  get winnersPage(): number {
+    return this._winnersPage;
+  }
+
+  set winnersPage(value: number) {
+    this._winnersPage = value;
+    this.broadcast(this);
+  }
 
   winnersCount = 0;
 
