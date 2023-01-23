@@ -1,7 +1,7 @@
 import { createElement } from '../../utils/createElementHelper';
 import { getLS, setLS } from '../../utils/localStorageHelpers';
 import { getWinners } from '../api';
-import { state } from '../store';
+import { SortBy, SortOrder, state } from '../store';
 
 export const createWinnersOptions = () => {
   const sortInputWrapper = createElement('select', 'sort-wrapper') as HTMLSelectElement;
@@ -35,30 +35,28 @@ export const createWinnersOptions = () => {
     setLS('sort', 'id');
   } else {
     sortInputWrapper.value = getLS('sort');
-    state.sortBy = sortInputWrapper.value;
+    state.sortBy = sortInputWrapper.value as SortBy;
   }
   if (!getLS('order')) {
     state.sortOrder = 'ASC';
     setLS('order', 'ASC');
   } else {
     orderInputWrapper.value = getLS('order');
-    state.sortOrder = orderInputWrapper.value;
+    state.sortOrder = orderInputWrapper.value as SortOrder;
   }
 
   sortInputWrapper.addEventListener('change', async () => {
     setLS('sort', sortInputWrapper.value);
-    state.sortBy = sortInputWrapper.value;
+    state.sortBy = sortInputWrapper.value as SortBy;
     state.winners = await getWinners({ page: 1, sort: state.sortBy, order: state.sortOrder });
     state.broadcast(state);
-    console.log(state.winners);
   });
 
   orderInputWrapper.addEventListener('change', async () => {
     setLS('order', orderInputWrapper.value);
-    state.sortOrder = orderInputWrapper.value;
+    state.sortOrder = orderInputWrapper.value as SortOrder;
     state.winners = await getWinners({ page: 1, sort: state.sortBy, order: state.sortOrder });
     state.broadcast(state);
-    console.log(state.winners);
   });
 
   return { sort: sortInputWrapper, order: orderInputWrapper };

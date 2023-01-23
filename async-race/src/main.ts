@@ -6,23 +6,6 @@ import './style.css';
 import { getCars, getWinners } from './components/api';
 import { state } from './components/store';
 
-getLS('state') ? (state.page = getLS('state').page) : 1;
-const carsApi = await getCars(state.page);
-state.cars = carsApi.items;
-state.count = carsApi.count;
-state.totalPages = Math.ceil(state.count / 7);
-state.winners = await getWinners({
-  page: state.winnersPage,
-  sort: getLS('sort') || state.sortBy,
-  order: getLS('order') || state.sortOrder,
-});
-getLS('state') ? (state.page = getLS('state').page) : setLS('state', state);
-
-state.subscribe((updatedState) => {
-  console.log(updatedState);
-  setLS('state', updatedState);
-});
-
 const checkView = (
   body: HTMLElement,
   garageContainer: HTMLElement,
@@ -41,8 +24,30 @@ const checkView = (
   return body;
 };
 
-const createBody = () => {
-  const header = createHeader(); // --------- блокировать кнопки гараж/виннерс во время гонки
+const createBody = async () => {
+  state.page = getLS('state') ? getLS('state').page : 1;
+
+  const carsApi = await getCars(state.page);
+  state.cars = carsApi.items;
+  state.count = carsApi.count;
+  state.totalPages = Math.ceil(state.count / 7);
+  state.winners = await getWinners({
+    page: state.winnersPage,
+    sort: getLS('sort') || state.sortBy,
+    order: getLS('order') || state.sortOrder,
+  });
+  if (getLS('state')) {
+    state.page = getLS('state').page;
+  } else {
+    setLS('state', state);
+  }
+
+  state.subscribe((updatedState) => {
+    console.log(updatedState);
+    setLS('state', updatedState);
+  });
+
+  const header = createHeader();
   const garageContainer = createGarage({
     carsArray: carsApi.items,
     carsTotalCount: carsApi.count,
@@ -65,4 +70,6 @@ const createBody = () => {
   checkView(document.body, garageContainer.el, winnersContainer);
 };
 
-createBody();
+createBody().catch((err) => {
+  console.error(err);
+});

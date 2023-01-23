@@ -2,9 +2,12 @@ import { EventObserver } from '../utils/observer';
 import { Car, Winner } from './api';
 
 interface Winners {
-  items: { car: void; id: number; name: string; color: string }[];
+  items: ({ car: Car } & Winner)[];
   count: number;
 }
+
+export type SortBy = 'id' | 'wins' | 'time';
+export type SortOrder = 'ASC' | 'DESC';
 export class State extends EventObserver<State> {
   cars: Car[] = [];
 
@@ -51,9 +54,9 @@ export class State extends EventObserver<State> {
     this.broadcast(this);
   }
 
-  sortBy: 'id' | 'wins' | 'time' = 'id';
+  sortBy: SortBy = 'id';
 
-  sortOrder: 'ASC' | 'DESC' = 'ASC';
+  sortOrder: SortOrder = 'ASC';
 
   private _count = 0;
 

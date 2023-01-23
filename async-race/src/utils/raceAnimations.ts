@@ -1,11 +1,4 @@
-import {
-  createWinner,
-  getWinner,
-  getWinners,
-  saveWinner,
-  setDrive,
-  stopRace,
-} from '../components/api';
+import { saveWinner, setDrive } from '../components/api';
 import { state } from '../components/store';
 
 export const startRaceAnimation = async (id: number, time: number) => {
@@ -27,7 +20,7 @@ export const startRaceAnimation = async (id: number, time: number) => {
 
       saveWinner({ id: state.currentWinner.winner!.id, time }).catch((err) => {
         console.error(err);
-      }); // ---------- только 1-го
+      });
     }
   });
 

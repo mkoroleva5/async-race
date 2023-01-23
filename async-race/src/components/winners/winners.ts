@@ -1,7 +1,5 @@
 import { createCarSvg } from '../../utils/createCarSvg';
 import { createElement } from '../../utils/createElementHelper';
-import { getLS, setLS } from '../../utils/localStorageHelpers';
-import { createWinner, deleteWinner, getWinners } from '../api';
 import { createWinnerElement } from '../basic-components/winner';
 import { createWinnersOptions } from '../basic-components/winnersOptions';
 import { state } from '../store';

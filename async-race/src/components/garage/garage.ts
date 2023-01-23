@@ -1,15 +1,6 @@
 import { createElement } from '../../utils/createElementHelper';
 import { createPagination } from '../basic-components/pagination';
-import {
-  Car,
-  createCar,
-  getCars,
-  getWinner,
-  getWinners,
-  saveWinner,
-  startRace,
-  stopRace,
-} from '../api';
+import { Car, createCar, getCars, getWinners, startRace, stopRace } from '../api';
 import './garage.css';
 import { createInput } from '../basic-components/input';
 import { state } from '../store';
@@ -21,7 +12,6 @@ import {
 } from '../../utils/raceAnimations';
 import { generateName } from '../../utils/generateName';
 import { generateColor } from '../../utils/generateColor';
-import { setLS } from '../../utils/localStorageHelpers';
 
 interface CreateGarageProps {
   carsArray: Car[];
@@ -56,6 +46,17 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
 
   const garageTitle = createElement('h1', 'garage-title');
 
+  const raceButtons = createElement('div', 'race-buttons');
+  const raceButton = createElement('button', 'button race-button') as HTMLButtonElement;
+  const resetButton = createElement('button', 'button reset-button') as HTMLButtonElement; // -------- сделать createElement дженериком
+  const generateButton = createElement('button', 'button generate-button') as HTMLButtonElement;
+  raceButton.innerHTML = 'race';
+  resetButton.innerHTML = 'reset';
+  generateButton.innerHTML = 'generate cars';
+  raceButtons.appendChild(raceButton);
+  raceButtons.appendChild(resetButton);
+  raceButtons.appendChild(generateButton);
+
   const creationInput = createInput(carsArray, 'create', '#ACE16B', async () => {
     raceButton.disabled = false;
     raceButton.classList.remove('disabled');
@@ -81,16 +82,6 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
   garage.appendChild(creationInput);
   garage.appendChild(updateInput);
 
-  const raceButtons = createElement('div', 'race-buttons');
-  const raceButton = createElement('button', 'button race-button') as HTMLButtonElement;
-  const resetButton = createElement('button', 'button reset-button') as HTMLButtonElement; // -------- сделать createElement дженериком
-  const generateButton = createElement('button', 'button generate-button') as HTMLButtonElement;
-  raceButton.innerHTML = 'race';
-  resetButton.innerHTML = 'reset';
-  generateButton.innerHTML = 'generate cars';
-  raceButtons.appendChild(raceButton);
-  raceButtons.appendChild(resetButton);
-  raceButtons.appendChild(generateButton);
   garage.appendChild(raceButtons);
 
   garageTitle.textContent = `Garage(${state.count})`;

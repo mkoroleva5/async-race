@@ -1,6 +1,3 @@
-import { stopRaceAnimation } from '../utils/raceAnimations';
-import { state } from './store';
-
 const url = 'http://127.0.0.1:3000/';
 const garage = `${url}garage`;
 const engine = `${url}engine`;
@@ -25,7 +22,7 @@ export const getCars = async (
   };
 };
 
-export const getCar = async (id: number) => {
+export const getCar = async (id: number): Promise<Car> => {
   return (await fetch(`${garage}/${id}`)).json();
 };
 
@@ -95,15 +92,16 @@ export const getWinners = async ({
   sort,
   order,
 }: GetWinnersProps): Promise<{
-  items: { car: void; id: number; name: string; color: string }[];
+  items: ({ car: Car } & Winner)[];
   count: number;
 }> => {
   const response = await fetch(`${winners}?_page=${page}&_limit=10${getSortOrder(sort, order)}`);
-  const items = (await response.json()) as { car: void; id: number; name: string; color: string }[];
+  const winnersArray = (await response.json()) as Winner[];
+  const items = await Promise.all(
+    winnersArray.map(async (item) => ({ ...item, car: await getCar(item.id) })),
+  );
   return {
-    items: await Promise.all(
-      items.map(async (item: Car) => ({ ...item, car: await getCar(item.id) })),
-    ),
+    items,
     count: Number(response.headers.get('X-total-count')),
   };
 };
