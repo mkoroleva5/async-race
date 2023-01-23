@@ -6,5 +6,9 @@ export const createHeader = () => {
   const header = createElement('header', 'header');
   const view = createViewOptions();
   header.appendChild(view);
-  return header;
+
+  return {
+    el: header,
+    viewWrapper: view,
+  };
 };
