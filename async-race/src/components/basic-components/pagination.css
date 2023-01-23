@@ -1,0 +1,38 @@
+.page-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.page {
+  color: var(--line-color);
+  font-weight: 700;
+  font-size: 2.2rem;
+}
+
+.switch-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.switch-button:hover {
+  transform: scale(1.15);
+}
+
+.switch-button:active {
+  transform: scale(1);
+}
+
+.prev-arrow-img,
+.next-arrow-img {
+  cursor: pointer;
+  filter: invert(36%) sepia(26%) saturate(1012%) hue-rotate(189deg) brightness(102%) contrast(87%);
+}
+
+.next-arrow-img {
+  transform: rotate(180deg);
+}
