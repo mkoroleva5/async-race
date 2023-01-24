@@ -10,6 +10,14 @@ import './winners.css';
 export const createWinnersContainer = () => {
   const winners = createElement('main', 'winners-container');
 
+  const winnersTitle = createElement('h1', 'winners-title');
+  winnersTitle.textContent = `Winners (${state.winners.count})`;
+  state.subscribe(() => {
+    winnersTitle.textContent = `Winners (${state.winners.count})`;
+  });
+
+  winners.appendChild(winnersTitle);
+
   const winnersPages = createWinnersPagination();
   winners.appendChild(winnersPages);
 
