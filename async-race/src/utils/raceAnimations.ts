@@ -7,13 +7,13 @@ export const startRaceAnimation = async (id: number, time: number) => {
   startButton.style.backgroundColor = '#c9c9c9';
 
   const stopButton = document.querySelector(`.stop-button-${id}`) as HTMLButtonElement;
-  stopButton.disabled = false;
   stopButton.style.backgroundColor = 'var(--bg-color)';
+  stopButton.disabled = state.animation;
 
   const car = document.querySelector(`.car-${id}`) as HTMLElement;
 
   car.addEventListener('animationend', () => {
-    if (!state.currentWinner) {
+    if (!state.currentWinner && state.animation) {
       state.currentWinner = { winner: state.cars.find((el) => el.id === id), time };
       const winnerPopup = document.querySelector<HTMLDivElement>('.winner-popup-wrapper');
       winnerPopup!.style.display = 'flex';
@@ -22,6 +22,7 @@ export const startRaceAnimation = async (id: number, time: number) => {
         console.error(err);
       });
     }
+
     delete state.singleAnimations[id];
   });
 
@@ -31,13 +32,8 @@ export const startRaceAnimation = async (id: number, time: number) => {
 
   try {
     await setDrive(id);
-    stopButton.disabled = true;
-    stopButton.style.backgroundColor = '#c9c9c9';
-    startButton.disabled = false;
-    startButton.style.backgroundColor = 'var(--bg-color)';
   } catch (err) {
-    console.log(err);
-    if (state.singleAnimations[id]) {
+    if (state.singleAnimations[id] || state.animation) {
       car.style.animationPlayState = 'paused';
       car.classList.add('rotate');
     }
