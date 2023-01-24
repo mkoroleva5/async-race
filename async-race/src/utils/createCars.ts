@@ -1,4 +1,4 @@
-import { Car, deleteCar, startRace, stopRace } from '../components/api';
+import { Car, deleteCar, deleteWinner, getWinners, startRace, stopRace } from '../components/api';
 import { createCarSvg } from './createCarSvg';
 import { createElement } from './createElementHelper';
 import playIcon from '../assets/icons/play.svg';
@@ -50,6 +50,12 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
 
     removeButton.addEventListener('click', async () => {
       await removeCar();
+      await deleteWinner(el.id);
+      state.winners = await getWinners({
+        page: state.winnersPage,
+        sort: state.sortBy,
+        order: state.sortOrder,
+      });
     });
 
     const raceField = createElement('div', 'race-field');
