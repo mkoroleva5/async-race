@@ -21,11 +21,11 @@ interface CreateGarageProps {
 }
 
 export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGarageProps) => {
-  const garage = createElement('main', 'garage-wrapper');
+  const garage = createElement('main', { className: 'garage-wrapper' });
 
-  const winnerPopupWrapper = createElement('div', 'winner-popup-wrapper');
-  const winnerPopup = createElement('div', 'winner-popup');
-  const winnerMessage = createElement('p', 'winner-message');
+  const winnerPopupWrapper = createElement('div', { className: 'winner-popup-wrapper' });
+  const winnerPopup = createElement('div', { className: 'winner-popup' });
+  const winnerMessage = createElement('p', { className: 'winner-message' });
 
   winnerPopup.appendChild(winnerMessage);
   winnerPopupWrapper.appendChild(winnerPopup);
@@ -44,15 +44,24 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     }
   });
 
-  const garageTitle = createElement('h1', 'garage-title');
+  const garageTitle = createElement('h1', {
+    className: 'garage-title',
+    textContent: `Garage(${state.count})`,
+  });
 
-  const raceButtons = createElement('div', 'race-buttons');
-  const raceButton = createElement('button', 'button race-button') as HTMLButtonElement;
-  const resetButton = createElement('button', 'button reset-button') as HTMLButtonElement; // -------- сделать createElement дженериком
-  const generateButton = createElement('button', 'button generate-button') as HTMLButtonElement;
-  raceButton.innerHTML = 'race';
-  resetButton.innerHTML = 'reset';
-  generateButton.innerHTML = 'generate cars';
+  const raceButtons = createElement('div', { className: 'race-buttons' });
+  const raceButton = createElement('button', {
+    className: 'button race-button',
+    innerHTML: 'race',
+  });
+  const resetButton = createElement('button', {
+    className: 'button reset-button',
+    innerHTML: 'reset',
+  });
+  const generateButton = createElement('button', {
+    className: 'button generate-button',
+    innerHTML: 'generate cars',
+  });
   raceButtons.appendChild(raceButton);
   raceButtons.appendChild(resetButton);
   raceButtons.appendChild(generateButton);
@@ -84,8 +93,6 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
 
   garage.appendChild(raceButtons);
 
-  garageTitle.textContent = `Garage(${state.count})`;
-
   state.subscribe(({ count }) => {
     garageTitle.textContent = `Garage(${count})`;
   });
@@ -103,13 +110,43 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     garage.appendChild(cars);
   };
 
-  const pagination = createPagination(async (currentPage) => {
-    onPageChange(currentPage);
-    const currentCars = await getCars(currentPage);
+  const changeStatePage = (currentPage: number) => {
     state.page = currentPage;
-    state.cars = currentCars.items;
-    updateCars(state.cars);
-  });
+  };
+
+  const stateSubscribtion = (
+    prevPageButton: HTMLButtonElement,
+    nextPageButton: HTMLButtonElement,
+  ) => {
+    state.subscribe(() => {
+      if (state.animation === true) {
+        prevPageButton.disabled = true;
+        nextPageButton.disabled = true;
+        prevPageButton.classList.add('disabled-page-button');
+        nextPageButton.classList.add('disabled-page-button');
+      }
+      if (state.animation === false) {
+        prevPageButton.disabled = false;
+        nextPageButton.disabled = false;
+        prevPageButton.classList.remove('disabled-page-button');
+        nextPageButton.classList.remove('disabled-page-button');
+      }
+    });
+  };
+
+  const pagination = createPagination(
+    'garage-',
+    state.page,
+    changeStatePage,
+    async (currentPage) => {
+      onPageChange(currentPage);
+      const currentCars = await getCars(currentPage);
+      state.page = currentPage;
+      state.cars = currentCars.items;
+      updateCars(state.cars);
+    },
+    stateSubscribtion,
+  );
   garage.appendChild(pagination);
 
   garage.appendChild(cars);

@@ -43,6 +43,12 @@
   margin-bottom: 2rem;
 }
 
+.garage-page-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .garage-title {
   font-size: 2.4rem;
   color: var(--line-color);
@@ -210,6 +216,13 @@
 
 .disabled-car-button {
   background-color: #c9c9c9;
+  cursor: not-allowed;
+}
+
+.disabled-page-button,
+.disabled-page-button .prev-arrow-img,
+.disabled-page-button .next-arrow-img {
+  filter: invert(36%) sepia(26%) saturate(0%) hue-rotate(189deg) brightness(152%) contrast(87%);
   cursor: not-allowed;
 }
 
