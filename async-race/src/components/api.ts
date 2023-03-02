@@ -9,13 +9,15 @@ export interface Car {
   color: string;
 }
 
+const carsPerPage = 7;
+
 export const getCars = async (
   page: number,
 ): Promise<{
   items: Car[];
   count: number;
 }> => {
-  const response = await fetch(`${garage}?_page=${page}&_limit=7`);
+  const response = await fetch(`${garage}?_page=${page}&_limit=${carsPerPage}`);
   return {
     items: await response.json(),
     count: Number(response.headers.get('X-total-count')!), // If _limit param is passed api returns a header X-Total-Count that countains total number of records.
@@ -87,6 +89,8 @@ interface GetWinnersProps {
   order: 'ASC' | 'DESC';
 }
 
+const winnersPerPage = 10;
+
 export const getWinners = async ({
   page,
   sort,
@@ -95,7 +99,9 @@ export const getWinners = async ({
   items: ({ car: Car } & Winner)[];
   count: number;
 }> => {
-  const response = await fetch(`${winners}?_page=${page}&_limit=10${getSortOrder(sort, order)}`);
+  const response = await fetch(
+    `${winners}?_page=${page}&_limit=${winnersPerPage}${getSortOrder(sort, order)}`,
+  );
   const winnersArray = (await response.json()) as Winner[];
   const items = await Promise.all(
     winnersArray.map(async (item) => ({ ...item, car: await getCar(item.id) })),
