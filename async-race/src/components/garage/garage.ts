@@ -79,14 +79,19 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     state.totalPages = Math.ceil(state.count / 7);
   });
 
-  const updateInput = createInput(carsArray, 'update', '#988FE0', () => {
-    raceButton.disabled = false;
-    raceButton.classList.remove('disabled');
-    resetButton.disabled = false;
-    resetButton.classList.remove('disabled');
-
-    onCarsChange();
-  });
+  const updateInput = createInput(
+    carsArray,
+    'update',
+    '#988FE0',
+    () => {
+      raceButton.disabled = false;
+      raceButton.classList.remove('disabled');
+      resetButton.disabled = false;
+      resetButton.classList.remove('disabled');
+      onCarsChange();
+    },
+    true,
+  );
 
   garage.appendChild(creationInput);
   garage.appendChild(updateInput);

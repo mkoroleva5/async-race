@@ -9,12 +9,14 @@ export const createInput = (
   buttonName: string,
   color: string,
   callback: () => void,
+  disabled?: boolean,
 ) => {
-  const inputWrapper = createElement('form', { className: 'input-wrapper' }); // --------- блокировать инпут до селекта
+  const inputWrapper = createElement('form', { className: 'input-wrapper' });
 
   const textInput = createElement('input', {
     className: `text-input ${buttonName}-car-input`,
     type: 'text',
+    disabled: !!disabled,
   });
 
   const colorInput = createElement('input', {
