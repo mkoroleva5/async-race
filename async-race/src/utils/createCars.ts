@@ -14,17 +14,21 @@ interface CreateCarsProps {
 }
 
 export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
-  const cars = createElement('div', 'cars-wrapper');
+  const cars = createElement('div', { className: 'cars-wrapper' });
 
   const generateCar = (el: Car) => {
-    const car = createElement('div', 'car-wrapper');
+    const car = createElement('div', { className: 'car-wrapper' });
 
-    const carInfo = createElement('div', 'car-info');
-    const selectButton = createElement('button', 'button select-button') as HTMLButtonElement;
-    const removeButton = createElement('button', 'button remove-button') as HTMLButtonElement;
+    const carInfo = createElement('div', { className: 'car-info' });
+    const selectButton = createElement('button', {
+      className: 'button select-button',
+    });
+    const removeButton = createElement('button', {
+      className: 'button remove-button',
+    });
     selectButton.innerHTML = 'select';
     removeButton.innerHTML = 'remove';
-    const carTitle = createElement('p', 'car-title');
+    const carTitle = createElement('p', { className: 'car-title' });
     carTitle.textContent = el.name;
 
     car.appendChild(carInfo);
@@ -58,28 +62,26 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
       });
     });
 
-    const raceField = createElement('div', 'race-field');
-    const startButton = createElement(
-      'button',
-      `action-button start-button start-button-${el.id}`,
-    ) as HTMLButtonElement;
-    const stopButton = createElement(
-      'button',
-      `action-button stop-button stop-button-${el.id}`,
-    ) as HTMLButtonElement;
+    const raceField = createElement('div', { className: 'race-field' });
+    const startButton = createElement('button', {
+      className: `action-button start-button start-button-${el.id}`,
+    });
+    const stopButton = createElement('button', {
+      className: `action-button stop-button stop-button-${el.id}`,
+    });
     stopButton.disabled = true;
-    const playImg = createElement('img', 'play-img');
+    const playImg = createElement('img', { className: 'play-img' });
     playImg.setAttribute('src', playIcon);
     playImg.setAttribute('alt', 'Play');
-    const stopImg = createElement('img', 'stop-img');
+    const stopImg = createElement('img', { className: 'stop-img' });
     stopImg.setAttribute('src', stopIcon);
     stopImg.setAttribute('alt', 'Stop');
 
-    const carImage = createElement('div', `car-image car-${el.id}`);
+    const carImage = createElement('div', { className: `car-image car-${el.id}` });
     const carSvg = createCarSvg(el.color);
     carImage.innerHTML = carSvg;
 
-    const flame = createElement('img', `flame flame-${el.id}`);
+    const flame = createElement('img', { className: `flame flame-${el.id}` });
     flame.setAttribute('src', flameIcon);
     carImage.appendChild(flame);
 
@@ -138,8 +140,8 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
     stopButton.appendChild(stopImg);
     raceField.appendChild(carImage);
 
-    const raceLine = createElement('div', 'race-line');
-    const finishImg = createElement('img', `finish-img finish-${el.id}`);
+    const raceLine = createElement('div', { className: 'race-line' });
+    const finishImg = createElement('img', { className: `finish-img finish-${el.id}` });
     finishImg.setAttribute('src', finishIcon);
     finishImg.setAttribute('alt', 'Finish');
     raceLine.appendChild(finishImg);

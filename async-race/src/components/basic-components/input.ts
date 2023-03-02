@@ -10,26 +10,23 @@ export const createInput = (
   color: string,
   callback: () => void,
 ) => {
-  const inputWrapper = createElement('form', 'input-wrapper'); // --------- блокировать инпут до селекта
+  const inputWrapper = createElement('form', { className: 'input-wrapper' }); // --------- блокировать инпут до селекта
 
-  const textInput = createElement(
-    'input',
-    `text-input ${buttonName}-car-input`,
-  ) as HTMLInputElement;
-  textInput.type = 'text';
+  const textInput = createElement('input', {
+    className: `text-input ${buttonName}-car-input`,
+    type: 'text',
+  });
 
-  const colorInput = createElement(
-    'input',
-    `color-input ${buttonName}-color-input`,
-  ) as HTMLInputElement;
-  colorInput.type = 'color';
-  colorInput.value = color;
+  const colorInput = createElement('input', {
+    className: `color-input ${buttonName}-color-input`,
+    type: 'color',
+    value: color,
+  });
 
-  const submitButton = createElement(
-    'button',
-    `submit-button ${buttonName}-button`,
-  ) as HTMLButtonElement;
-  submitButton.textContent = buttonName;
+  const submitButton = createElement('button', {
+    className: `submit-button ${buttonName}-button`,
+    textContent: buttonName,
+  });
 
   inputWrapper.appendChild(textInput);
   inputWrapper.appendChild(colorInput);

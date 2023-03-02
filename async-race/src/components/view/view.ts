@@ -4,19 +4,22 @@ import { state } from '../store';
 import './view.css';
 
 export const createViewOptions = () => {
-  const view = createElement('div', 'view-wrapper');
+  const view = createElement('div', { className: 'view-wrapper' });
   const options = ['Garage', 'Winners'];
 
   options.map((el) => {
-    const viewOption = createElement('div', 'view-option');
-    const viewInput = createElement('input', 'view-input') as HTMLInputElement;
-    const viewLabel = createElement('label', 'view-label');
-
-    viewInput.setAttribute('type', 'radio');
-    viewInput.setAttribute('name', 'view');
-    viewInput.setAttribute('id', el);
-    viewLabel.setAttribute('for', el);
-    viewLabel.innerHTML = el;
+    const viewOption = createElement('div', { className: 'view-option' });
+    const viewInput = createElement('input', {
+      className: 'view-input',
+      type: 'radio',
+      name: 'view',
+      id: el,
+    });
+    const viewLabel = createElement('label', {
+      className: 'view-label',
+      innerHTML: el,
+      htmlFor: el,
+    });
 
     viewInput.addEventListener('input', () => {
       setLS('view', el);

@@ -4,31 +4,49 @@ import { getWinners } from '../api';
 import { SortBy, SortOrder, state } from '../store';
 
 export const createWinnersOptions = () => {
-  const sortInputWrapper = createElement('select', 'sort-wrapper') as HTMLSelectElement;
-  const sortOption1 = createElement('option', 'sort-option-1');
-  sortOption1.setAttribute('value', 'id');
-  sortOption1.textContent = 'id';
-  const sortOption2 = createElement('option', 'sort-option-2');
-  sortOption2.setAttribute('value', 'wins');
-  sortOption2.textContent = 'wins';
-  const sortOption3 = createElement('option', 'sort-option-3');
-  sortOption3.setAttribute('value', 'time');
-  sortOption3.textContent = 'time';
+  const sortInputWrapper = createElement('select', {
+    className: 'sort-wrapper',
+  });
 
-  sortInputWrapper.appendChild(sortOption1);
-  sortInputWrapper.appendChild(sortOption2);
-  sortInputWrapper.appendChild(sortOption3);
+  const sortOptionId = createElement('option', {
+    className: 'sort-option-1',
+    value: 'id',
+    textContent: 'id',
+  });
 
-  const orderInputWrapper = createElement('select', 'order-wrapper') as HTMLSelectElement;
-  const orderOption1 = createElement('option', 'order-option-1');
-  orderOption1.setAttribute('value', 'ASC');
-  orderOption1.textContent = 'ASC';
-  const orderOption2 = createElement('option', 'order-option-2');
-  orderOption2.setAttribute('value', 'DESC');
-  orderOption2.textContent = 'DESC';
+  const sortOptionWins = createElement('option', {
+    className: 'sort-option-2',
+    value: 'wins',
+    textContent: 'wins',
+  });
 
-  orderInputWrapper.appendChild(orderOption1);
-  orderInputWrapper.appendChild(orderOption2);
+  const sortOptionTime = createElement('option', {
+    className: 'sort-option-3',
+    value: 'time',
+    textContent: 'time',
+  });
+
+  sortInputWrapper.appendChild(sortOptionId);
+  sortInputWrapper.appendChild(sortOptionWins);
+  sortInputWrapper.appendChild(sortOptionTime);
+
+  const orderInputWrapper = createElement('select', {
+    className: 'order-wrapper',
+  });
+
+  const orderOptionASC = createElement('option', {
+    className: 'order-option-1',
+    value: 'ASC',
+    textContent: 'ASC',
+  });
+  const orderOptionDESC = createElement('option', {
+    className: 'order-option-2',
+    value: 'DESC',
+    textContent: 'DESC',
+  });
+
+  orderInputWrapper.appendChild(orderOptionASC);
+  orderInputWrapper.appendChild(orderOptionDESC);
 
   if (!getLS('sort')) {
     state.sortBy = 'id';

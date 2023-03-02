@@ -1,15 +1,11 @@
 import { createElement } from '../../utils/createElementHelper';
 
 export const createWinnerElement = (name: string, wins: number, time: number) => {
-  const winner = createElement('div', 'winner');
+  const winner = createElement('div', { className: 'winner' });
 
-  const winnerName = createElement('p', 'winner-text');
-  const winnerWins = createElement('p', 'winner-text');
-  const winnerTime = createElement('p', 'winner-text');
-
-  winnerName.textContent = `${name}`;
-  winnerWins.textContent = `${wins}`;
-  winnerTime.textContent = `${time}s`;
+  const winnerName = createElement('p', { className: 'winner-text', textContent: `${name}` });
+  const winnerWins = createElement('p', { className: 'winner-text', textContent: `${wins}` });
+  const winnerTime = createElement('p', { className: 'winner-text', textContent: `${time}s` });
 
   winner.appendChild(winnerName);
   winner.appendChild(winnerWins);
