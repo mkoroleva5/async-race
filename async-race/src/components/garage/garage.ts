@@ -113,10 +113,6 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     changeStatePage,
     async (currentPage) => {
       onPageChange(currentPage);
-      const currentCars = await getCars(currentPage);
-      state.page = currentPage;
-      state.cars = currentCars.items;
-      updateCars(state.cars);
     },
   );
 
