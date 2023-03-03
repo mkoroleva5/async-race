@@ -200,7 +200,7 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     updateCars(currentCars.items);
     state.cars = currentCars.items;
     state.count += 100;
-    state.totalPages = Math.ceil(state.count / 7);
+    state.totalPages = Math.ceil(state.count / carsPerPage);
   });
 
   return { el: garage, updateCars };
