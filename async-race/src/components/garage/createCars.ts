@@ -1,12 +1,12 @@
-import { Car, deleteCar, deleteWinner, getWinners, startRace, stopRace } from '../components/api';
-import { createCarSvg } from './createCarSvg';
-import { createElement } from './createElementHelper';
-import playIcon from '../assets/icons/play.svg';
-import stopIcon from '../assets/icons/stop.svg';
-import finishIcon from '../assets/icons/flag.svg';
-import flameIcon from '../assets/icons/flame-icon.svg';
-import { state } from '../components/store';
-import { startRaceAnimation } from './raceAnimations';
+import { Car, deleteCar, deleteWinner, getWinners, startRace, stopRace } from '../api';
+import { createCarSvg } from '../../utils/createCarSvg';
+import { createElement } from '../../utils/createElementHelper';
+import playIcon from '../../assets/icons/play.svg';
+import stopIcon from '../../assets/icons/stop.svg';
+import finishIcon from '../../assets/icons/flag.svg';
+import flameIcon from '../../assets/icons/flame-icon.svg';
+import { state } from '../store';
+import { startRaceAnimation } from '../../utils/raceAnimations';
 
 interface CreateCarsProps {
   carsArray: Car[];

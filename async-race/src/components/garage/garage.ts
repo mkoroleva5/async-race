@@ -4,7 +4,7 @@ import { Car, createCar, getCars, getWinners, startRace, stopRace } from '../api
 import './garage.css';
 import { createInput } from '../basic-components/input';
 import { state } from '../store';
-import { createCars } from '../../utils/createCars';
+import { createCars } from './createCars';
 import {
   resetRaceAnimation,
   startRaceAnimation,
