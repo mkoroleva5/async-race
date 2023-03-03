@@ -4,7 +4,7 @@ import { Car, createCar, getCars, getWinners, startRace, stopRace } from '../api
 import './garage.css';
 import { createInput } from '../basic-components/input';
 import { state } from '../store';
-import { createCars } from './createCars';
+import { carsPerPage, createCars } from './createCars';
 import {
   resetRaceAnimation,
   startRaceAnimation,
@@ -76,7 +76,7 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     const currentCars = await getCars(state.page);
     state.cars = currentCars.items;
     state.count = currentCars.count;
-    state.totalPages = Math.ceil(state.count / 7);
+    state.totalPages = Math.ceil(state.count / carsPerPage);
   });
 
   const updateInput = createInput(

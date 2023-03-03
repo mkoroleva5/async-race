@@ -5,6 +5,7 @@ import { getLS, setLS } from './utils/localStorageHelpers';
 import './style.css';
 import { getCars, getWinners } from './components/api';
 import { state } from './components/store';
+import { carsPerPage } from './components/garage/createCars';
 
 const checkView = (
   body: HTMLElement,
@@ -30,7 +31,7 @@ const createBody = async () => {
   const carsApi = await getCars(state.page);
   state.cars = carsApi.items;
   state.count = carsApi.count;
-  state.totalPages = Math.ceil(state.count / 7);
+  state.totalPages = Math.ceil(state.count / carsPerPage);
   state.winners = await getWinners({
     page: state.winnersPage,
     sort: getLS('sort') || state.sortBy,

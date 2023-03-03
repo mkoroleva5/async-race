@@ -8,6 +8,7 @@ import flameIcon from '../../assets/icons/flame-icon.svg';
 import { state } from '../store';
 import { startRaceAnimation } from '../../utils/raceAnimations';
 
+export const carsPerPage = 7;
 interface CreateCarsProps {
   carsArray: Car[];
   onCarRemove: () => void;
@@ -46,7 +47,7 @@ export const createCars = ({ carsArray, onCarRemove }: CreateCarsProps) => {
         onCarRemove();
         state.cars = carsArray;
         state.count -= 1;
-        state.totalPages = Math.ceil(state.count / 7);
+        state.totalPages = Math.ceil(state.count / carsPerPage);
       } catch (err) {
         console.log(err);
       }
