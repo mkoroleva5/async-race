@@ -12,6 +12,7 @@ import {
 } from '../../utils/raceAnimations';
 import { generateName } from '../../utils/generateName';
 import { generateColor } from '../../utils/generateColor';
+import { winnerPopupComponent } from './winnersPopUp';
 
 interface CreateGarageProps {
   carsArray: Car[];
@@ -23,31 +24,13 @@ interface CreateGarageProps {
 export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGarageProps) => {
   const garage = createElement('main', { className: 'garage-wrapper' });
 
-  const winnerPopupWrapper = createElement('div', { className: 'winner-popup-wrapper' });
-  const winnerPopup = createElement('div', { className: 'winner-popup' });
-  const winnerMessage = createElement('p', { className: 'winner-message' });
-
-  winnerPopup.appendChild(winnerMessage);
-  winnerPopupWrapper.appendChild(winnerPopup);
-  garage.appendChild(winnerPopupWrapper);
-
-  winnerPopupWrapper.addEventListener('click', (e) => {
-    if (e.target === e.currentTarget) {
-      winnerPopupWrapper.style.display = 'none';
-    }
-  });
-
-  state.subscribe(({ currentWinner }) => {
-    if (currentWinner && currentWinner.winner) {
-      const time = (currentWinner.time / 1000).toFixed(2);
-      winnerMessage.innerHTML = `${currentWinner.winner.name} went first(${time}s)!`;
-    }
-  });
-
   const garageTitle = createElement('h1', {
     className: 'garage-title',
     textContent: `Garage(${state.count})`,
   });
+
+  const winnerPopUp = winnerPopupComponent();
+  garage.appendChild(winnerPopUp.el);
 
   const raceButtons = createElement('div', { className: 'race-buttons' });
   const raceButton = createElement('button', {
