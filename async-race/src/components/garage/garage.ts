@@ -199,7 +199,7 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     const currentCars = await getCars(state.page);
     updateCars(currentCars.items);
     state.cars = currentCars.items;
-    state.count += 100;
+    state.count = currentCars.count;
     state.totalPages = Math.ceil(state.count / carsPerPage);
   });
 
