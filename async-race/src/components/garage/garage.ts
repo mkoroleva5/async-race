@@ -124,26 +124,6 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
     state.page = currentPage;
   };
 
-  const stateSubscribtion = (
-    prevPageButton: HTMLButtonElement,
-    nextPageButton: HTMLButtonElement,
-  ) => {
-    state.subscribe(() => {
-      if (state.animation === true) {
-        prevPageButton.disabled = true;
-        nextPageButton.disabled = true;
-        prevPageButton.classList.add('disabled-page-button');
-        nextPageButton.classList.add('disabled-page-button');
-      }
-      if (state.animation === false) {
-        prevPageButton.disabled = false;
-        nextPageButton.disabled = false;
-        prevPageButton.classList.remove('disabled-page-button');
-        nextPageButton.classList.remove('disabled-page-button');
-      }
-    });
-  };
-
   const pagination = createPagination(
     'garage-',
     state.page,
@@ -155,9 +135,18 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
       state.cars = currentCars.items;
       updateCars(state.cars);
     },
-    stateSubscribtion,
   );
-  garage.appendChild(pagination);
+
+  state.subscribe(() => {
+    if (state.animation === true) {
+      pagination.disableButtons();
+    }
+    if (state.animation === false) {
+      pagination.enableButtons();
+    }
+  });
+
+  garage.appendChild(pagination.el);
 
   garage.appendChild(cars);
 

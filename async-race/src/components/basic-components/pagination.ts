@@ -8,10 +8,6 @@ export const createPagination = (
   statePage: number,
   changeState: (currentPage: number) => void,
   callback?: (page: number) => void,
-  stateSubscribtion?: (
-    prevPageButton: HTMLButtonElement,
-    nextPageButton: HTMLButtonElement,
-  ) => void,
 ) => {
   let currentPage = statePage || 1;
 
@@ -43,8 +39,6 @@ export const createPagination = (
   pageWrapper.appendChild(page);
   pageWrapper.appendChild(nextPageButton);
 
-  if (stateSubscribtion) stateSubscribtion(prevPageButton, nextPageButton);
-
   prevPageButton.addEventListener('click', () => {
     if (currentPage > 1) currentPage -= 1;
     page.textContent = `${currentPage}`;
@@ -63,5 +57,19 @@ export const createPagination = (
     state.broadcast(state);
   });
 
-  return pageWrapper;
+  const disableButtons = () => {
+    prevPageButton.disabled = true;
+    nextPageButton.disabled = true;
+    prevPageButton.classList.add('disabled-page-button');
+    nextPageButton.classList.add('disabled-page-button');
+  };
+
+  const enableButtons = () => {
+    prevPageButton.disabled = false;
+    nextPageButton.disabled = false;
+    prevPageButton.classList.remove('disabled-page-button');
+    nextPageButton.classList.remove('disabled-page-button');
+  };
+
+  return { el: pageWrapper, disableButtons, enableButtons };
 };

@@ -32,7 +32,7 @@ export const createWinnersContainer = () => {
   };
 
   const winnersPages = createPagination('winners-', state.winnersPage, changeStateWinnersPage);
-  winners.appendChild(winnersPages);
+  winners.appendChild(winnersPages.el);
 
   const sortOption = createWinnersOptions().sort;
   const orderOption = createWinnersOptions().order;
