@@ -52,15 +52,15 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
   const raceButtons = createElement('div', { className: 'race-buttons' });
   const raceButton = createElement('button', {
     className: 'button race-button',
-    innerHTML: 'race',
+    textContent: 'race',
   });
   const resetButton = createElement('button', {
     className: 'button reset-button',
-    innerHTML: 'reset',
+    textContent: 'reset',
   });
   const generateButton = createElement('button', {
     className: 'button generate-button',
-    innerHTML: 'generate cars',
+    textContent: 'generate cars',
   });
   raceButtons.appendChild(raceButton);
   raceButtons.appendChild(resetButton);
