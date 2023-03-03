@@ -66,32 +66,37 @@ export const createGarage = ({ carsArray, onPageChange, onCarsChange }: CreateGa
   raceButtons.appendChild(resetButton);
   raceButtons.appendChild(generateButton);
 
-  const creationInput = createInput(carsArray, 'create', '#ACE16B', async () => {
-    raceButton.disabled = false;
-    raceButton.classList.remove('disabled');
-    resetButton.disabled = false;
-    resetButton.classList.remove('disabled');
+  const creationInput = createInput({
+    carsArray,
+    buttonName: 'create',
+    color: '#ACE16B',
+    callback: async () => {
+      raceButton.disabled = false;
+      raceButton.classList.remove('disabled');
+      resetButton.disabled = false;
+      resetButton.classList.remove('disabled');
 
-    onCarsChange();
-    const currentCars = await getCars(state.page);
-    state.cars = currentCars.items;
-    state.count = currentCars.count;
-    state.totalPages = Math.ceil(state.count / carsPerPage);
+      onCarsChange();
+      const currentCars = await getCars(state.page);
+      state.cars = currentCars.items;
+      state.count = currentCars.count;
+      state.totalPages = Math.ceil(state.count / carsPerPage);
+    },
   });
 
-  const updateInput = createInput(
+  const updateInput = createInput({
     carsArray,
-    'update',
-    '#988FE0',
-    () => {
+    buttonName: 'update',
+    color: '#988FE0',
+    callback: () => {
       raceButton.disabled = false;
       raceButton.classList.remove('disabled');
       resetButton.disabled = false;
       resetButton.classList.remove('disabled');
       onCarsChange();
     },
-    true,
-  );
+    disabled: true,
+  });
 
   garage.appendChild(creationInput);
   garage.appendChild(updateInput);

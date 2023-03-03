@@ -4,13 +4,21 @@ import { Car, createCar, updateCar } from '../api';
 import { state } from '../store';
 import './input.css';
 
-export const createInput = (
-  carsArray: Car[],
-  buttonName: string,
-  color: string,
-  callback: () => void,
-  disabled?: boolean,
-) => {
+interface CreateInputProps {
+  carsArray: Car[];
+  buttonName: string;
+  color: string;
+  callback: () => void;
+  disabled?: boolean;
+}
+
+export const createInput = ({
+  carsArray,
+  buttonName,
+  color,
+  callback,
+  disabled,
+}: CreateInputProps) => {
   const inputWrapper = createElement('form', { className: 'input-wrapper' });
 
   const textInput = createElement('input', {
