@@ -21,8 +21,7 @@ Install dependencies
 Start the server
 
 ```bash
-  cd async-race-api
-  npm start
+  https://github.com/mikhama/async-race-api
 ```
 
 Start the app 
