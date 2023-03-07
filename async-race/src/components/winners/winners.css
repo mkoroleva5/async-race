@@ -1,0 +1,40 @@
+.winners-wrapper {
+  margin: 1rem 3rem;
+  max-width: 50rem;
+}
+
+.winners-page-wrapper {
+  display: flex;
+  align-items: center;
+  margin: 3rem;
+}
+
+.winners-title {
+  font-size: 2.4rem;
+  color: var(--line-color);
+  margin: 2rem 0 0 3rem;
+}
+
+.sort-wrapper {
+  margin: 0rem 3rem;
+}
+
+.sort-wrapper,
+.order-wrapper {
+  height: 3rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  color: var(--bg-color);
+  border: 1px solid var(--bg-color);
+  outline: none;
+  background-color: rgb(255, 255, 255, 0.5);
+}
+
+.winner {
+  display: grid;
+  grid-template-rows: 1;
+  grid-template-columns: 0.3fr 0.5fr 2fr 0.5fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  font-weight: 700;
+}

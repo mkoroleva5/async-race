@@ -1,0 +1,260 @@
+.garage-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 3rem;
+  max-width: 90%;
+  overflow-x: hidden;
+}
+
+.winner-popup-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.winner-popup {
+  max-width: 50rem;
+  width: 50%;
+  height: 15rem;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border: 5px solid var(--bg-color);
+  border-radius: 1.6rem;
+  font-size: 2.4rem;
+}
+
+.race-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.garage-page-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.garage-title {
+  font-size: 2.4rem;
+  color: var(--line-color);
+  margin-bottom: 1rem;
+}
+
+.cars-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.car-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.car-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button {
+  width: 8rem;
+  height: 2.8rem;
+  padding: 1.4rem 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--line-color);
+  border-radius: 1rem;
+  background-color: rgb(255, 255, 255, 0.5);
+  color: var(--line-color);
+  cursor: pointer;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: white;
+}
+
+.button:active {
+  transform: scale(0.96);
+}
+
+.generate-button {
+  width: 25rem;
+  height: 3.2rem;
+  font-size: 2rem;
+}
+
+.race-button,
+.reset-button {
+  width: 9.5rem;
+  height: 3.2rem;
+  font-size: 2rem;
+}
+
+.remove-button {
+  margin-right: 1rem;
+}
+
+.car-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--line-color);
+}
+
+.car-image {
+  position: relative;
+  width: 90%;
+  height: 4rem;
+  z-index: 3;
+}
+
+.rotate svg {
+  transform: rotate(180deg) translateY(-10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.rotate .flame {
+  opacity: 1;
+  animation: fire 0.8s infinite;
+}
+
+.flame {
+  position: absolute;
+  left: 10px;
+  bottom: 14px;
+  opacity: 0;
+}
+
+.race-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.action-button {
+  padding: 0.7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 1rem;
+  background-color: var(--bg-color);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.action-button:hover {
+  opacity: 0.8;
+}
+
+.action-button:active {
+  transform: scale(0.96);
+}
+
+.play-img,
+.stop-img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.stop-button {
+  background-color: #c9c9c9;
+  margin-right: 1rem;
+}
+
+.race-line {
+  position: relative;
+  top: 0;
+  width: 100%;
+  border-bottom: 3px dashed var(--line-color);
+}
+
+.finish-img {
+  position: absolute;
+  right: 10%;
+  bottom: 0;
+}
+
+.race {
+  animation-name: race;
+  animation-duration: 0s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.disabled {
+  border: 3px solid #c9c9c9;
+  color: #c9c9c9;
+  cursor: not-allowed;
+}
+
+.disabled:active,
+.disabled-car-button:active {
+  transform: scale(1);
+}
+
+.disabled-car-button {
+  background-color: #c9c9c9;
+  cursor: not-allowed;
+}
+
+.disabled-page-button,
+.disabled-page-button .prev-arrow-img,
+.disabled-page-button .next-arrow-img {
+  filter: invert(36%) sepia(26%) saturate(0%) hue-rotate(189deg) brightness(152%) contrast(87%);
+  cursor: not-allowed;
+}
+
+@keyframes race {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(93%);
+  }
+}
+
+@keyframes fire {
+  0% {
+    filter: saturate(1);
+  }
+  50% {
+    filter: saturate(2.5);
+  }
+  100% {
+    filter: saturate(1);
+  }
+}
+
+@media (max-width: 700px) {
+  .car-image {
+    width: 80%;
+  }
+}
+
+@media (max-width: 650px) {
+  .car-image {
+    width: 78%;
+  }
+}
